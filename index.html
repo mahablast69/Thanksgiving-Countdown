@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanksgiving Countdown</title>
+  <style>
+    body {
+      font-family: 'festive', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffcc00;
+      color: #000000;
+      text-align: center;
+    }
+    header {
+      background-color: #ff3c00;
+      padding: 20px;
+      color: rgb(255, 187, 0);
+      font-size: 2.5em;
+    }
+    #countdown {
+      font-size: 2em;
+      margin-top: 30px;
+    }
+    .message {
+      font-size: 1.5em;
+      color: #000000;
+      margin-top: 20px;
+    }
+    footer {
+      background-color: #ff3c00;
+      padding: 10px;
+      color: rgb(100, 0, 0);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 1em;
+    }
+    .container {
+      padding: 40px;
+      background-color: #ff8800;
+      border-radius: 10px;
+      margin-top: 40px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .container img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .thanksgiving-img {
+      max-width: 300px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Thanksgiving Celebration
+  </header>
+
+  <div class="container">
+    <p id="countdown"></p>
+    <img class="thanksgiving-img" src="Asset 1.png" alt="Thanksgiving Image">
+  </div>
+
+
+  <footer>
+    2024 Thanksgiving
+  </footer>
+
+  <script>
+    function getThanksgivingDate(year) {
+      const novemberFirst = new Date(year, 10, 1);
+      const dayOfWeek = novemberFirst.getDay();
+      const daysUntilThursday = (dayOfWeek <= 4) ? 4 - dayOfWeek : 11 - dayOfWeek;
+      const thanksgivingDate = new Date(novemberFirst.setDate(1 + daysUntilThursday + 21));
+      return thanksgivingDate;
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const thanksgivingDate = getThanksgivingDate(currentYear);
+      const timeDiff = thanksgivingDate - now;
+
+      if (timeDiff <= 0) {
+        document.getElementById("countdown").textContent = "Happy Thanksgiving!";
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").textContent = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds until Thanksgiving!`;
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
